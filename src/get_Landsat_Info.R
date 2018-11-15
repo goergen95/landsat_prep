@@ -6,7 +6,7 @@ source("~/lsat/landsat_prep/src/env_setup.R")
 ## read in shapefile of study area
 #shape <- readOGR(dsn = paste0(envrmt$shapes,"name_of_shapefile.shp"))
 ## or enter bounding box manually
-aoi <- matrix(data=c(72.4875,42.25833,72.4875,49.12973,85.0063,49.12973,85.00063,42.25833),nrow=4,byrow=TRUE)
+aoi <- matrix(data=c(47.26,73.13,47.26,83.11,43.38,83.11,43.38,73.13),nrow=4,byrow=TRUE)
 #you may want to set the aoi session wide with
 #set_aoi(aoi)
 
@@ -14,14 +14,14 @@ login_USGS("da.goergen")
 prod_names <- getLandsat_names()
 time_range <- c("2013-01-01","2013-12-31")
 
-query <- getLandsat_query(time_range =  time_range, name = prod_names[7], aoi = aoi)
+query <- getLandsat_query(time_range =  time_range, name = prod_names[6], aoi = aoi)
 
 saveRDS(query, file =paste0(envrmt$path_data,"queryLS.rds"))
 fileList <- readRDS(file = paste0(envrmt$path_data,"queryLS.rds"))
 
 
 #exclude files with cloud cover over 20%
-fileList <- fileList[which(fileList$SceneCloudCover<20),]
+fileList <- fileList[which(fileList$SceneCloudCover<10),]
 #only include files with data for both sensors
 fileListOT <- fileList[which(fileList$SensorIdentifier=="OLI_TIRS"),]
 
