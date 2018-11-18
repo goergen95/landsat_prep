@@ -23,3 +23,5 @@ envrmt = initProj(projRootDir = filepath_base, GRASSlocation = "data/grass/",
                   global = FALSE)
 
 rasterOptions(tmpdir = envrmt$path_data_tmp)
+
+source("~/lsat/landsat_prep/src/checkDates.R")
