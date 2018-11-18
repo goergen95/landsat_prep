@@ -15,6 +15,7 @@ checkDate <- function(data,landsat){
     if (value <= 2) {
       print("For this measurment there is a scene available within 2 days")
       return(which(x<=2))
+      next
     } else if (value > 5) {
       print("For this measurment there is no scene available.")
     } else {
