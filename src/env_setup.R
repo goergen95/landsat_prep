@@ -16,7 +16,7 @@ if(Sys.info()["sysname"] == "Windows"){
 project_folders = c("data/", 
                     "data/raw/", "data/lsr/","data/dem/", "data/pyhton/","data/grass/", 
                     "data/tmp/", 
-                    "run/", "log/", "landsat_prep/src/","landsat_prep/doc/")
+                    "run/", "log/", "landsat_prep/src/","landsat_prep/doc/","data/river/")
 
 envrmt = initProj(projRootDir = filepath_base, GRASSlocation = "data/grass/",
                   projFolders = project_folders, path_prefix = "path_", 
