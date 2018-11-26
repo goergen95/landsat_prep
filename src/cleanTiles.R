@@ -36,7 +36,7 @@ for (i in 1:length(tilesID)){
     print("Now writing raster.")
     names(tmp) <- c("Band1","Band2","Band3","Band4","Band5","Band6","Band7")
     tmp <- writeRaster(tmp,filename = paste0(envrmt$path_data,"/lsrs/tile",tilesID[i],"_",dates[j],".tif"),
-                       datatype="INT2S")
+                       datatype="INT2S",overwrite=TRUE)
   }
 }
 
