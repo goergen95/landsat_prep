@@ -75,7 +75,7 @@ for (i in 1:length(grid)){
 shp1 <- readOGR(paste0(envrmt$path_data_river,"einzel.shp"))
 shp2 <- readOGR(paste0(envrmt$path_data_river,"riverIli2.shp"))
 
+shb <- bind(shp1,shp2)
 
-shp <- merge(shp1,shp2)
-writeOGR(shp,dsn=paste0(envrmt$path_data_river,"RIVER.shp"),driver = "ESRI Shapefile",
+writeOGR(shb,dsn=paste0(envrmt$path_data_river,"RIVER.shp"),driver = "ESRI Shapefile",
          layer = "RIVER")
