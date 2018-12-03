@@ -13,13 +13,14 @@ checkDate <- function(data,landsat){
   scCheck <- function(x) {
     value <- min(x)
     if (value <= 2) {
-      print("For this measurment there is a scene available within 2 days")
+      #print("For this measurment there is a scene available within 2 days")
       return(which(x<=2))
       next
     } else if (value > 5) {
-      print("For this measurment there is no scene available.")
+      #print("For this measurment there is no scene available.")
+      return(NA)
     } else {
-      print("Luckily there is a scene available within 5 days")
+      #print("Luckily there is a scene available within 5 days")
       return(which(x > 2 & x < 5))
     }
   }
