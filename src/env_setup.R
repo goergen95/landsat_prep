@@ -1,7 +1,8 @@
 libs <- c("raster",
           "rgdal",
           "getSpatialData",
-          "link2GI")
+          "link2GI",
+          "caret")
 
 lapply(libs, require, character.only = TRUE)
 
@@ -16,7 +17,8 @@ if(Sys.info()["sysname"] == "Windows"){
 project_folders = c("data/", 
                     "data/raw/", "data/lsr/","data/dem/", "data/pyhton/","data/grass/", 
                     "data/tmp/", 
-                    "run/", "log/", "landsat_prep/src/","landsat_prep/doc/","data/river/")
+                    "run/", "log/", "landsat_prep/src/","landsat_prep/doc/","data/river/",
+                    "prediction/")
 
 envrmt = initProj(projRootDir = filepath_base, GRASSlocation = "data/grass/",
                   projFolders = project_folders, path_prefix = "path_", 
