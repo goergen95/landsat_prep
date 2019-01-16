@@ -2,7 +2,9 @@ libs <- c("raster",
           "rgdal",
           "getSpatialData",
           "link2GI",
-          "caret")
+          "caret",
+          "keras",
+          "magrittr")
 
 lapply(libs, require, character.only = TRUE)
 

@@ -2,8 +2,10 @@ source("~/lsat/landsat_prep/src/env_setup.R")
 
 ls <- list.files(paste0(envrmt$path_data,"lsrs/"),full.names=TRUE, pattern = ".tif")
 shp <- readOGR(paste0(envrmt$path_data_river,"RIVER.shp"))
-shp <- spTransform(shp, CRSobj = crs(raster(ls[1])))
-stations <- readOGR(paste0(envrmt$path_data,"stations/stations.shp"))
+#shp <- spTransform(shp, CRSobj = crs(raster(ls[1])))
+stations <- readOGR(paste0(envrmt$path_data,"stations/KHM_stations.shp"))
+stations <- stations[,-1]
+stations <- stations[-which(is.na(stations$SID)),]
 #stations <- spTransform(stations, CRSobj = crs(raster(ls[1])))
 data <- read.csv(paste0(envrmt$path_data,"ili_stations.csv"),header=TRUE)
 names(data)[1] <- "Date"
@@ -20,8 +22,9 @@ for (i in 1:length(tiles)){
   tmp <- raster::raster(ls[stringr::str_detect(ls,tiles[i])][1])
   stations <- spTransform(stations,crs(tmp))
   ext[i,2:(length(unique(stations$SID))+1)]<- raster::cellFromXY(tmp,stations)
+  print(i)
 }
-
+stations@data <- merge(stations@data,data,by="SID")
 
 ### check for available dates
 

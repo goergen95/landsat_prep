@@ -16,12 +16,12 @@ checkDate <- function(data,landsat){
       #print("For this measurment there is a scene available within 2 days")
       return(which(x<=2))
       next
-    } else if (value > 5) {
+    } else if (value > 7) {
       #print("For this measurment there is no scene available.")
       return(NA)
     } else {
       #print("Luckily there is a scene available within 5 days")
-      return(which(x > 2 & x < 5))
+      return(which(x > 2 & x < 7))
     }
   }
   index <- lapply(timeDiff, scCheck)
