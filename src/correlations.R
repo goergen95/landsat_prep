@@ -2,15 +2,16 @@ source("~/lsat/landsat_prep/src/000_env_setup.R")
 source("~/GEO-Master/data_analysis/mpg-data-analysis-2018-goergen95/src/ffs_cv_function.R")
 library(gam)
 data = readRDS(paste0(envrmt$path_prediction,"observation_data_pca.rds"))
-data = data[-c(1,6),]
+data = data[-c(2,14,17),]
 vars = names(data)[c(19:25,27)]
 dep = names(data)[3]
 #data = data[-c(2,14,17),]
-test = at_cont(data = data, dep= "N", vars = vars, model = "gam", metric = "Rsquared")
+names(data)
+test = at_cont(data = data, dep= "SO4" , vars = vars, model = "lm", metric = "Rsquared")
 test[[2]]
-
-
-
+#plot(residuals(test[[3]]),test[[3]]$fitted.values)
+plot(test[[4]]$pred,test[[4]]$obsv, xlab = "predicted values", ylab = "observed values", main = "GAM model TSS - R²: 0.69 - RMSE: 49.03 mg/l",sub ="validation based on Leave-One-Out-CV")
+test[[4]]
 
   
 for ( i in 1:16){
