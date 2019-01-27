@@ -5,7 +5,7 @@
 
 checkDate <- function(data,landsat){
   dates <- stringr::str_sub(landsat,-12,-5)
-  
+  #dates = stringr::str_sub(landsat,-18,-11)
   timeDiff <- lapply(data$Date, function(x)
   sqrt((as.numeric(as.character(dates))-as.numeric(as.character(x)))**2)
   )

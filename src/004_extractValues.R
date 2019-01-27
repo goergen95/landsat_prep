@@ -1,4 +1,4 @@
-source("~/lsat/landsat_prep/src/env_setup.R")
+source("~/lsat/landsat_prep/src/000_env_setup.R")
 
 ls <- list.files(paste0(envrmt$path_data,"lsrs/"),full.names=TRUE, pattern = ".tif")
 shp <- readOGR(paste0(envrmt$path_data_river,"RIVER.shp"))
@@ -8,6 +8,7 @@ stations <- stations[,-1]
 stations <- stations[-which(is.na(stations$SID)),]
 #stations <- spTransform(stations, CRSobj = crs(raster(ls[1])))
 data <- read.csv(paste0(envrmt$path_data,"ili_stations.csv"),header=TRUE)
+stations@data <- merge(stations@data,data,by="SID")
 names(data)[1] <- "Date"
 #stations@data <- merge(stations@data,data,by="SID")
 
@@ -24,7 +25,7 @@ for (i in 1:length(tiles)){
   ext[i,2:(length(unique(stations$SID))+1)]<- raster::cellFromXY(tmp,stations)
   print(i)
 }
-stations@data <- merge(stations@data,data,by="SID")
+
 
 ### check for available dates
 
@@ -52,7 +53,7 @@ for ( stationID in 1:length(stations) ){
        
        for ( scene in 1:sum(!is.na(index))){
          r <- brick(ls[index[scene]])
-         names(r) <- c("Band1","Band2","Band3","Band4","Band5","Band6","Band7")
+         names(r) <- c("Band1","Band2","Band3","Band4","Band5","Band6","Band7","PC1")
          exsitu <- rbind(exsitu,r[ext[,names(ext)==ID][ext$tiles==tile]])
        }
        obsv <- cbind(insitu,exsitu)
@@ -64,5 +65,5 @@ for ( stationID in 1:length(stations) ){
 
 #exclude empty cells from rasters
 results <- na.omit(results)
-saveRDS(results, file = paste0(envrmt$path_prediction,"observation_data.rds"))
+saveRDS(results, file = paste0(envrmt$path_prediction,"observation_data_pca.rds"))
 
